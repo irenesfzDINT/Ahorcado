@@ -100,5 +100,20 @@
   <ItemGroup>
     <Resource Include="assets\icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\0.jpg" />
+    <Resource Include="assets\1.jpg" />
+    <Resource Include="assets\2.jpg" />
+    <Resource Include="assets\3.jpg" />
+    <Resource Include="assets\4.jpg" />
+    <Resource Include="assets\5.jpg" />
+    <Resource Include="assets\6.jpg" />
+    <Resource Include="assets\7.jpg" />
+    <Resource Include="assets\8.jpg" />
+    <Resource Include="assets\9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\10.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

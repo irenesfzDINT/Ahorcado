@@ -23,6 +23,25 @@ namespace Ahorcado
         public MainWindow()
         {
             InitializeComponent();
+
+            for (int filas = 0; filas < 4; filas++)
+            {
+                for (int columnas = 0; columnas < 10; columnas++)
+                {
+                    Viewbox viewbox = new Viewbox();
+                    Label label = new Label();
+                    Button button = new Button();
+
+                    label.Content = "e";
+                    viewbox.Child = label;
+                    button.Content = viewbox;
+
+                    Grid.SetRow(button, filas);
+                    Grid.SetColumn(button, columnas);
+                    CuadriculaUniformGrid.Children.Add(button);
+                }
+            }
+            
         }
     }
 }
