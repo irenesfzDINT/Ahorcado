@@ -20,28 +20,84 @@ namespace Ahorcado
     /// </summary>
     public partial class MainWindow : Window
     {
+        Char[] abecedario = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        String[] palabras = { "hola", "adios", "DINT", "sdfsdfasdfasdfsad" };
+        String palabra = null;
+        Char[] letrasPalabra = null;
+        Random rn = new Random();
+        int intentos = 10;
         public MainWindow()
         {
             InitializeComponent();
-
-            for (int filas = 0; filas < 4; filas++)
+            CreaBotones();
+            palabra = EligePalabra();
+            CreaGuiones(palabra);
+        }
+        private void CreaBotones()
+        {
+            foreach (char letra in abecedario)
             {
-                for (int columnas = 0; columnas < 10; columnas++)
-                {
-                    Viewbox viewbox = new Viewbox();
-                    Label label = new Label();
-                    Button button = new Button();
-
-                    label.Content = "e";
-                    viewbox.Child = label;
-                    button.Content = viewbox;
-
-                    Grid.SetRow(button, filas);
-                    Grid.SetColumn(button, columnas);
-                    CuadriculaUniformGrid.Children.Add(button);
-                }
+                Button button = new Button();
+                button.Content = letra.ToString().ToUpper();
+                button.Tag = letra.ToString().ToUpper();
+                button.Click += Button_Click;
+                button.KeyUp += Button_KeyUp;
+                CuadriculaUniformGrid.Children.Add(button);
             }
-            
+        }
+        private void CreaGuiones(String palabra)
+        {
+            letrasPalabra = palabra.ToCharArray();
+            int numeroLetras = palabra.Length;
+            for (int i = 0; i < numeroLetras; i++)
+            {
+                TextBlock texto = new TextBlock();
+                //texto.Name = "textoTextBlock";
+                texto.Text = "_";
+                texto.FontSize = 100;
+                texto.Tag = letrasPalabra[i].ToString();
+                texto.Margin = new Thickness(15);
+                PalabraWrapPanel.Children.Add(texto);
+            }
+        }
+        private String EligePalabra()
+        {
+            palabra = palabras[rn.Next(0, palabras.Length)];
+            return palabra;
+        }
+        private void Button_KeyUp(object sender, KeyEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CompruebaCoincidencia(String letra)
+        {
+            letrasPalabra = palabra.ToCharArray();
+
+            if (palabra.Contains(letra))
+            {
+            }
+            else
+            {
+                
+                intentos--;
+            }
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            String letra  = (sender as Button).Tag.ToString();
+            letrasPalabra = palabra.ToCharArray();
+
+            if (palabra.Contains(letra))
+            {
+
+            }
+            else
+            {
+
+                intentos--;
+            }
         }
     }
 }
+

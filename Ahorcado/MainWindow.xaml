@@ -6,29 +6,46 @@
         xmlns:local="clr-namespace:Ahorcado"
         mc:Ignorable="d"
         Icon="assets/icon.ico"
-        Title="Ahorcado" Height="800" Width="1000">
+        Title="Ahorcado"
+        Height="662"
+        Width="916"
+        MaxHeight="662"
+        MinHeight="662"
+        MaxWidth="916"
+        MinWidth="916">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Margin" Value="5"></Setter>
-            <Setter Property="Padding" Value="4"></Setter>
+            <Setter Property="Margin"
+                    Value="5"></Setter>
+            <Setter Property="Padding"
+                    Value="4"></Setter>
         </Style>
     </Window.Resources>
-    <DockPanel>
+    <DockPanel LastChildFill="False">
         <WrapPanel DockPanel.Dock="Bottom">
             <Button>Nueva Partida</Button>
             <Button>Rendirse</Button>
         </WrapPanel>
-        <TextBlock DockPanel.Dock="Top" TextAlignment="Center"
+        <TextBlock DockPanel.Dock="Top"
+                   TextAlignment="Center"
                    FontSize="24"
                    FontWeight="Bold">AHORCADO</TextBlock>
-        <Image Source="assets/0.jpg" DockPanel.Dock="Left"></Image>
+        <Image Source="assets/0.jpg"
+               DockPanel.Dock="Left"></Image>
         <ScrollViewer DockPanel.Dock="Top"
+                      Margin="34"
                       HorizontalScrollBarVisibility="Visible"
                       VerticalScrollBarVisibility="Disabled">
+            <WrapPanel x:Name="PalabraWrapPanel"
+                       Margin="34">
+            </WrapPanel>
         </ScrollViewer>
         <UniformGrid  Columns="9"
-                     Rows="3" x:Name="CuadriculaUniformGrid">
+                      Rows="3"
+                      DockPanel.Dock="top"
+                      Margin="34,0,34,10"
+                      x:Name="CuadriculaUniformGrid">
         </UniformGrid>
     </DockPanel>
-   
+
 </Window>
