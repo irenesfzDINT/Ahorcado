@@ -9,30 +9,69 @@
         Title="Ahorcado"
         Height="662"
         Width="916"
-        MaxHeight="662"
         MinHeight="662"
-        MaxWidth="916"
         MinWidth="916"
         KeyDown="Window_KeyDown">
     <Window.Resources>
+        <!--Botones-->
         <Style TargetType="{x:Type Button}">
             <Setter Property="Margin"
                     Value="5"></Setter>
             <Setter Property="Padding"
                     Value="4"></Setter>
         </Style>
+
+        <!--TextBlock-->
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize"
+                    Value="36"></Setter>
+            <Setter Property="FontWeight"
+                    Value="Bold"></Setter>
+            <Setter Property="TextAlignment"
+                    Value="Center"></Setter>
+        </Style>
+        <!--Imagen oculta-->
+        <Style TargetType="{x:Type Image}"
+               x:Key="ImgOculta">
+            <Setter Property="Visibility"
+                    Value="Collapsed"></Setter>
+        </Style>
     </Window.Resources>
-    <DockPanel LastChildFill="False">
+    <DockPanel LastChildFill="False"
+               x:Name="TodoDockPanel">
         <WrapPanel DockPanel.Dock="Bottom">
-            <Button>Nueva Partida</Button>
-            <Button>Rendirse</Button>
+            <Button Click="NuevaPartida_Click">Nueva Partida</Button>
+            <Button x:Name="RendirseButton"
+                    Click="Rendirse_Click">Rendirse</Button>
         </WrapPanel>
         <TextBlock DockPanel.Dock="Top"
-                   TextAlignment="Center"
-                   FontSize="24"
-                   FontWeight="Bold">AHORCADO</TextBlock>
-        <Image Source="assets/0.jpg"
-               DockPanel.Dock="Left"></Image>
+                   Foreground="Blue">AHORCADO</TextBlock>
+        <!--Imagenes-->
+        <DockPanel LastChildFill="False"
+                   x:Name="ImagenDockPanel"
+                   DockPanel.Dock="Left">
+            <Image Source="assets/0.jpg"></Image>
+            <Image Source="assets/1.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/2.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/3.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/4.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/5.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/6.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/7.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/8.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/9.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+            <Image Source="assets/10.jpg"
+                   Style="{StaticResource ImgOculta}"></Image>
+        </DockPanel>
         <ScrollViewer DockPanel.Dock="Top"
                       Margin="34"
                       HorizontalScrollBarVisibility="Visible"
@@ -41,12 +80,15 @@
                        Margin="34">
             </WrapPanel>
         </ScrollViewer>
-        <UniformGrid  Columns="9"
+        <UniformGrid  x:Name="CuadriculaUniformGrid"
+                      Columns="9"
                       Rows="3"
                       DockPanel.Dock="top"
-                      Margin="34,0,34,10"
-                      x:Name="CuadriculaUniformGrid">
+                      Margin="34,0,34,10">
         </UniformGrid>
+        <TextBlock x:Name="IntentosTextBlock"
+                   DockPanel.Dock="Bottom"
+                   Foreground="#FFE40000"></TextBlock>
     </DockPanel>
 
 </Window>

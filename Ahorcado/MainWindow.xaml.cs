@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Ahorcado
 {
@@ -21,17 +12,16 @@ namespace Ahorcado
     public partial class MainWindow : Window
     {
         Char[] abecedario = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        String[] palabras = { "hola", "adios", "DINT", "sdfsdfasdfasdfsad", "yucca", "PSP", "Apruebame" };
+        String[] palabras = { "hola", "adios", "dint", "uwu", "yucca", "psp", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
         String palabra = null;
         Char[] letrasPalabra = null;
         Random rn = new Random();
-        int intentos = 10;
+        int intentosGastados = 0;
         public MainWindow()
         {
             InitializeComponent();
             CreaBotones();
-            palabra = EligePalabra();
-            CreaGuiones(palabra);
+            CreaJuego();
         }
         private void CreaBotones()
         {
@@ -40,13 +30,40 @@ namespace Ahorcado
                 Button button = new Button();
                 button.Content = letra.ToString().ToUpper();
                 button.Tag = letra.ToString();
+                button.BorderBrush = Brushes.Red;
+                button.BorderThickness = new Thickness(5);
+                button.Background = Brushes.LightCoral;
                 button.Click += Button_Click;
-
                 CuadriculaUniformGrid.Children.Add(button);
             }
         }
+        public void CreaJuego()
+        {
+            IntentosTextBlock.Text = "Intentos disponibles -> 10";
+            RendirseButton.IsEnabled = true;
+            //reinicia intentos
+            intentosGastados = 0;
+            //borra la palabra
+            PalabraWrapPanel.Children.Clear();
+            //reinicia imagen
+            CambiaImagen(0);
+            //elige palabra random
+            palabra = EligePalabra();
+            //muestra palabras
+            CreaGuiones(palabra);
+        }
+        private void CambiaImagen(int numeroImagen)
+        {
+            //oculto todas las imágenes
+            foreach (Image img1 in ImagenDockPanel.Children)
+            {
+                img1.Visibility = Visibility.Collapsed;
+            }
+            //muestro la imagen que quiera
+            Image img = (Image)ImagenDockPanel.Children[numeroImagen];
+            img.Visibility = Visibility.Visible;
 
-
+        }
         private void CreaGuiones(String palabra)
         {
             letrasPalabra = palabra.ToCharArray();
@@ -76,22 +93,42 @@ namespace Ahorcado
                 {
                     if (tb.Tag.ToString() == letra) tb.Text = letra.ToUpper();
                 }
+                JuegoGanado();
             }
             else
             {
-                intentos--;
-                if (intentos == 0)
+                intentosGastados++;
+                IntentosTextBlock.Text = "Intentos disponibles -> " + (10 - intentosGastados).ToString();
+                CambiaImagen(intentosGastados);
+                if (intentosGastados == 10)
                 {
-                    TodoMal();
+                    JuegoPerdido();
                 }
             }
         }
-        private void TodoMal()
+        private void JuegoGanado()
         {
-            foreach (Button boton in CuadriculaUniformGrid.Children)
+            bool coincide = true;
+            for (int i = 0; i < letrasPalabra.Length; i++)
             {
-                boton.IsEnabled = false;
+                TextBlock tb = (TextBlock)PalabraWrapPanel.Children[i];
+                if (tb.Text == "_")
+                {
+                    coincide = false;
+                    break;
+                }
             }
+            if (coincide)
+            {
+                MessageBox.Show("Has ganado");
+                RecorreBotones(false);
+                RendirseButton.IsEnabled = false;
+            }
+        }
+
+        private void JuegoPerdido()
+        {
+            RecorreBotones(false);
             MessageBox.Show("Has perdido");
             int contador = 0;
             //muestra palabra
@@ -101,6 +138,7 @@ namespace Ahorcado
                 tb.Text = letrasPalabra[contador].ToString().ToUpper();
                 contador++;
             }
+            RendirseButton.IsEnabled = false;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -119,6 +157,21 @@ namespace Ahorcado
             }
             CompruebaCoincidencia(e.Key.ToString().ToLower());
         }
+        public void RecorreBotones(bool botonHabilitado)
+        {
+            foreach (Button boton in CuadriculaUniformGrid.Children)
+            {
+                boton.IsEnabled = botonHabilitado;
+            }
+        }
+        private void NuevaPartida_Click(object sender, RoutedEventArgs e)
+        {
+            RecorreBotones(true);
+            CreaJuego();
+        }
+        private void Rendirse_Click(object sender, RoutedEventArgs e)
+        {
+            JuegoPerdido();
+        }
     }
 }
-
