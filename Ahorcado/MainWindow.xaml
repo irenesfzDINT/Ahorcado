@@ -12,7 +12,8 @@
         MaxHeight="662"
         MinHeight="662"
         MaxWidth="916"
-        MinWidth="916">
+        MinWidth="916"
+        KeyDown="Window_KeyDown">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
             <Setter Property="Margin"
