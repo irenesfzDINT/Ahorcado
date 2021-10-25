@@ -20,6 +20,16 @@
             <Setter Property="Padding"
                     Value="4"></Setter>
         </Style>
+        <Style TargetType="{x:Type Button}"
+               BasedOn="{StaticResource {x:Type Button}}"
+               x:Key="miBoton">
+            <Setter Property="Height"
+                    Value="40"></Setter>
+            <Setter Property="Width"
+                    Value="106"></Setter>
+            <Setter Property="FontSize"
+                    Value="15px"></Setter>
+        </Style>
 
         <!--TextBlock-->
         <Style TargetType="{x:Type TextBlock}">
@@ -37,19 +47,20 @@
                     Value="Collapsed"></Setter>
         </Style>
     </Window.Resources>
-    <DockPanel LastChildFill="False"
-               x:Name="TodoDockPanel">
+    <DockPanel x:Name="TodoDockPanel">
         <WrapPanel DockPanel.Dock="Bottom">
-            <Button Click="NuevaPartida_Click">Nueva Partida</Button>
-            <Button x:Name="RendirseButton"
+            <Button Style="{StaticResource miBoton}"
+                    Click="NuevaPartida_Click">Nueva Partida</Button>
+            <Button Style="{StaticResource miBoton}"
+                    x:Name="RendirseButton"
                     Click="Rendirse_Click">Rendirse</Button>
         </WrapPanel>
         <TextBlock DockPanel.Dock="Top"
                    Foreground="Blue">AHORCADO</TextBlock>
         <!--Imagenes-->
-        <DockPanel LastChildFill="False"
-                   x:Name="ImagenDockPanel"
-                   DockPanel.Dock="Left">
+        <StackPanel Orientation="Horizontal"
+                    x:Name="ImagenStackPanel"
+                    DockPanel.Dock="Left">
             <Image Source="assets/0.jpg"></Image>
             <Image Source="assets/1.jpg"
                    Style="{StaticResource ImgOculta}"></Image>
@@ -71,24 +82,26 @@
                    Style="{StaticResource ImgOculta}"></Image>
             <Image Source="assets/10.jpg"
                    Style="{StaticResource ImgOculta}"></Image>
-        </DockPanel>
+
+        </StackPanel>
         <ScrollViewer DockPanel.Dock="Top"
                       Margin="34"
                       HorizontalScrollBarVisibility="Visible"
                       VerticalScrollBarVisibility="Disabled">
             <WrapPanel x:Name="PalabraWrapPanel"
-                       Margin="34">
+                       Margin="34"
+                       HorizontalAlignment="Center">
             </WrapPanel>
         </ScrollViewer>
+        <TextBlock x:Name="IntentosTextBlock"
+                   DockPanel.Dock="Bottom"
+                   Foreground="#FFE40000"></TextBlock>
         <UniformGrid  x:Name="CuadriculaUniformGrid"
                       Columns="9"
                       Rows="3"
                       DockPanel.Dock="top"
                       Margin="34,0,34,10">
         </UniformGrid>
-        <TextBlock x:Name="IntentosTextBlock"
-                   DockPanel.Dock="Bottom"
-                   Foreground="#FFE40000"></TextBlock>
     </DockPanel>
 
 </Window>

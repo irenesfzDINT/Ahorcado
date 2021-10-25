@@ -12,7 +12,7 @@ namespace Ahorcado
     public partial class MainWindow : Window
     {
         Char[] abecedario = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        String[] palabras = { "hola", "adios", "dint", "uwu", "yucca", "psp", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
+        String[] palabras = { "hola", "adios", "dint", "uwu", "yucca", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
         String palabra = null;
         Char[] letrasPalabra = null;
         Random rn = new Random();
@@ -28,7 +28,11 @@ namespace Ahorcado
             foreach (char letra in abecedario)
             {
                 Button button = new Button();
-                button.Content = letra.ToString().ToUpper();
+                Viewbox vb = new Viewbox();
+                Label lb = new Label();
+                lb.Content = letra.ToString();
+                vb.Child = lb;
+                button.Content = vb;
                 button.Tag = letra.ToString();
                 button.BorderBrush = Brushes.Red;
                 button.BorderThickness = new Thickness(5);
@@ -54,13 +58,19 @@ namespace Ahorcado
         }
         private void CambiaImagen(int numeroImagen)
         {
+                /*BitmapImage bitMapImagen = new BitmapImage();
+                bitMapImagen.BeginInit();
+                bitMapImagen.UriSource = new Uri("./assets/" + numeroImagen + ".jpg", UriKind.Relative);
+                bitMapImagen.EndInit();
+                AhorcadoImage.Source = bitMapImagen;*/
+
             //oculto todas las imágenes
-            foreach (Image img1 in ImagenDockPanel.Children)
+            foreach (Image img1 in ImagenStackPanel.Children)
             {
                 img1.Visibility = Visibility.Collapsed;
             }
             //muestro la imagen que quiera
-            Image img = (Image)ImagenDockPanel.Children[numeroImagen];
+            Image img = (Image)ImagenStackPanel.Children[numeroImagen];
             img.Visibility = Visibility.Visible;
 
         }
@@ -87,7 +97,7 @@ namespace Ahorcado
         public void CompruebaCoincidencia(String letra)
         {
             letrasPalabra = palabra.ToCharArray();
-            if (palabra.Contains(letra))
+            if (palabra.Contains(letra.ToLower()))
             {
                 foreach (TextBlock tb in PalabraWrapPanel.Children)
                 {
@@ -152,10 +162,17 @@ namespace Ahorcado
         {
             foreach (Button boton in CuadriculaUniformGrid.Children)
             {
-                if (e.Key.ToString().Contains(boton.Tag.ToString().ToUpper()))
-                    boton.IsEnabled = false;
+                if (e.Key.ToString().ToLower().Contains(boton.Tag.ToString()))
+                {
+                    if (boton.IsEnabled)
+                    {
+                        CompruebaCoincidencia(e.Key.ToString().ToLower());
+                        boton.IsEnabled = false;
+                    }
+                }
             }
-            CompruebaCoincidencia(e.Key.ToString().ToLower());
+
+
         }
         public void RecorreBotones(bool botonHabilitado)
         {
