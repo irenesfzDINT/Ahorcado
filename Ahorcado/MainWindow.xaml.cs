@@ -30,7 +30,7 @@ namespace Ahorcado
                 Button button = new Button();
                 Viewbox vb = new Viewbox();
                 Label lb = new Label();
-                lb.Content = letra.ToString();
+                lb.Content = letra.ToString().ToUpper();
                 vb.Child = lb;
                 button.Content = vb;
                 button.Tag = letra.ToString();
