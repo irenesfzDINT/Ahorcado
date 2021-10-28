@@ -12,7 +12,7 @@ namespace Ahorcado
     public partial class MainWindow : Window
     {
         Char[] abecedario = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        String[] palabras = { "hola", "adios", "dint", "uwu", "yucca", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
+        String[] palabras = { "hola", "adios", "dint", "uwu", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
         String palabra = null;
         Char[] letrasPalabra = null;
         Random rn = new Random();
@@ -58,11 +58,12 @@ namespace Ahorcado
         }
         private void CambiaImagen(int numeroImagen)
         {
-                /*BitmapImage bitMapImagen = new BitmapImage();
-                bitMapImagen.BeginInit();
-                bitMapImagen.UriSource = new Uri("./assets/" + numeroImagen + ".jpg", UriKind.Relative);
-                bitMapImagen.EndInit();
-                AhorcadoImage.Source = bitMapImagen;*/
+            /* Otra forma de hacer lo de las imágenes
+            BitmapImage bitMapImagen = new BitmapImage();
+            bitMapImagen.BeginInit();
+            bitMapImagen.UriSource = new Uri("./assets/" + numeroImagen + ".jpg", UriKind.Relative);
+            bitMapImagen.EndInit();
+            AhorcadoImage.Source = bitMapImagen;*/
 
             //oculto todas las imágenes
             foreach (Image img1 in ImagenStackPanel.Children)
@@ -130,7 +131,7 @@ namespace Ahorcado
             }
             if (coincide)
             {
-                MessageBox.Show("Has ganado");
+                MessageBox.Show("Has ganado", "Victoria", MessageBoxButton.OK, MessageBoxImage.Information);
                 RecorreBotones(false);
                 RendirseButton.IsEnabled = false;
             }
@@ -139,7 +140,8 @@ namespace Ahorcado
         private void JuegoPerdido()
         {
             RecorreBotones(false);
-            MessageBox.Show("Has perdido");
+            CambiaImagen(10);
+            MessageBox.Show("Has perdido", "Derrota", MessageBoxButton.OK, MessageBoxImage.Error);
             int contador = 0;
             //muestra palabra
             letrasPalabra = palabra.ToCharArray();
@@ -160,14 +162,26 @@ namespace Ahorcado
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
+            int keyEnum = (int)e.Key;
             foreach (Button boton in CuadriculaUniformGrid.Children)
             {
-                if (e.Key.ToString().ToLower().Contains(boton.Tag.ToString()))
+                if (keyEnum == 146)
                 {
-                    if (boton.IsEnabled)
+                    if (boton.Tag.ToString().ToUpper() == "Ñ" && boton.IsEnabled)
                     {
                         CompruebaCoincidencia(e.Key.ToString().ToLower());
                         boton.IsEnabled = false;
+                    }
+                }
+                else
+                {
+                    if (e.Key.ToString().ToLower().Contains(boton.Tag.ToString()))
+                    {
+                        if (boton.IsEnabled)
+                        {
+                            CompruebaCoincidencia(e.Key.ToString().ToLower());
+                            boton.IsEnabled = false;
+                        }
                     }
                 }
             }
