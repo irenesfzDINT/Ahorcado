@@ -34,10 +34,7 @@ namespace Ahorcado
                 vb.Child = lb;
                 button.Content = vb;
                 button.Tag = letra.ToString();
-                button.BorderBrush = Brushes.Red;
-                button.BorderThickness = new Thickness(5);
-                button.Background = Brushes.LightCoral;
-                button.Click += Button_Click;
+                button.Style = (Style)Resources["BotonesDinamicos"];
                 CuadriculaUniformGrid.Children.Add(button);
             }
         }
@@ -58,13 +55,6 @@ namespace Ahorcado
         }
         private void CambiaImagen(int numeroImagen)
         {
-            /* Otra forma de hacer lo de las imágenes
-            BitmapImage bitMapImagen = new BitmapImage();
-            bitMapImagen.BeginInit();
-            bitMapImagen.UriSource = new Uri("./assets/" + numeroImagen + ".jpg", UriKind.Relative);
-            bitMapImagen.EndInit();
-            AhorcadoImage.Source = bitMapImagen;*/
-
             //oculto todas las imágenes
             foreach (Image img1 in ImagenStackPanel.Children)
             {

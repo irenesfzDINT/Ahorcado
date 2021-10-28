@@ -28,7 +28,20 @@
             <Setter Property="FontSize"
                     Value="15px"></Setter>
         </Style>
-
+        <!--Botones dinámicos-->
+        <Style TargetType="{x:Type Button}" x:Key="BotonesDinamicos">
+            <Setter Property="BorderBrush"
+                    Value="Red"></Setter>
+            <Setter Property="BorderThickness"
+                    Value="5"></Setter>
+            <Setter Property="Background"
+                    Value="LightCoral"></Setter>
+            <EventSetter Event="Click"
+                         Handler="Button_Click"></EventSetter>
+            <Setter Property="Margin"
+                    Value="4"></Setter>
+            
+        </Style>
         <!--TextBlock-->
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize"
