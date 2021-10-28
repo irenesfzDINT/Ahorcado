@@ -28,8 +28,12 @@ namespace Ahorcado
             foreach (char letra in abecedario)
             {
                 Button button = new Button();
-                button.Content = letra.ToString().ToUpper();
-                button.Tag = letra.ToString().ToUpper();
+                Viewbox vb = new Viewbox();
+                Label lb = new Label();
+                lb.Content = letra.ToString().ToUpper();
+                vb.Child = lb;
+                button.Content = vb;
+                button.Tag = letra.ToString();
                 button.BorderBrush = Brushes.Red;
                 button.BorderThickness = new Thickness(5);
                 button.Background = Brushes.LightCoral;
@@ -54,8 +58,7 @@ namespace Ahorcado
         }
         private void CambiaImagen(int numeroImagen)
         {
-                /*bosible forma para cambiar de imágenes
-                BitmapImage bitMapImagen = new BitmapImage();
+                /*BitmapImage bitMapImagen = new BitmapImage();
                 bitMapImagen.BeginInit();
                 bitMapImagen.UriSource = new Uri("./assets/" + numeroImagen + ".jpg", UriKind.Relative);
                 bitMapImagen.EndInit();
