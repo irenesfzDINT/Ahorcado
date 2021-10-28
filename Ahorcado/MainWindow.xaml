@@ -96,12 +96,14 @@
         <TextBlock x:Name="IntentosTextBlock"
                    DockPanel.Dock="Bottom"
                    Foreground="#FFE40000"></TextBlock>
+        <Viewbox>
         <UniformGrid  x:Name="CuadriculaUniformGrid"
                       Columns="9"
                       Rows="3"
                       DockPanel.Dock="top"
                       Margin="34,0,34,10">
         </UniformGrid>
+        </Viewbox>
     </DockPanel>
 
 </Window>
