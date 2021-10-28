@@ -11,10 +11,10 @@ namespace Ahorcado
     /// </summary>
     public partial class MainWindow : Window
     {
-        Char[] abecedario = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        String[] palabras = { "hola", "adios", "dint", "uwu", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
-        String palabra = null;
-        Char[] letrasPalabra = null;
+        char[] abecedario = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        string[] palabras = { "hola", "adios", "dint", "uwu", "electroencefalografista", "esternocleidomastoideo", "arroz", "alpaca", "hemiplejia" };
+        string palabra = null;
+        char[] letrasPalabra = null;
         Random rn = new Random();
         int intentosGastados = 0;
         public MainWindow()
@@ -132,14 +132,14 @@ namespace Ahorcado
             if (coincide)
             {
                 MessageBox.Show("Has ganado", "Victoria", MessageBoxButton.OK, MessageBoxImage.Information);
-                RecorreBotones(false);
+                BotonesHabilitados(false);
                 RendirseButton.IsEnabled = false;
             }
         }
 
         private void JuegoPerdido()
         {
-            RecorreBotones(false);
+            BotonesHabilitados(false);
             CambiaImagen(10);
             MessageBox.Show("Has perdido", "Derrota", MessageBoxButton.OK, MessageBoxImage.Error);
             int contador = 0;
@@ -155,7 +155,7 @@ namespace Ahorcado
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            String letra = (sender as Button).Tag.ToString();
+            string letra = (sender as Button).Tag.ToString();
             (sender as Button).IsEnabled = false;
             CompruebaCoincidencia(letra);
         }
@@ -165,7 +165,7 @@ namespace Ahorcado
             int keyEnum = (int)e.Key;
             foreach (Button boton in CuadriculaUniformGrid.Children)
             {
-                if (keyEnum == 146)
+                if (keyEnum == 146) //la tecla Ñ
                 {
                     if (boton.Tag.ToString().ToUpper() == "Ñ" && boton.IsEnabled)
                     {
@@ -174,21 +174,18 @@ namespace Ahorcado
                     }
                 }
                 else
-                {
-                    if (e.Key.ToString().ToLower().Contains(boton.Tag.ToString()))
+                {   //si palabra contiene la tecla pulsada y el botón de la tecla esta enabled
+                    if (e.Key.ToString().ToLower().Contains(boton.Tag.ToString()) && boton.IsEnabled)
                     {
-                        if (boton.IsEnabled)
-                        {
-                            CompruebaCoincidencia(e.Key.ToString().ToLower());
-                            boton.IsEnabled = false;
-                        }
+                        CompruebaCoincidencia(e.Key.ToString().ToLower());
+                        boton.IsEnabled = false;
                     }
                 }
             }
 
 
         }
-        public void RecorreBotones(bool botonHabilitado)
+        public void BotonesHabilitados(bool botonHabilitado)
         {
             foreach (Button boton in CuadriculaUniformGrid.Children)
             {
@@ -197,7 +194,7 @@ namespace Ahorcado
         }
         private void NuevaPartida_Click(object sender, RoutedEventArgs e)
         {
-            RecorreBotones(true);
+            BotonesHabilitados(true);
             CreaJuego();
         }
         private void Rendirse_Click(object sender, RoutedEventArgs e)
